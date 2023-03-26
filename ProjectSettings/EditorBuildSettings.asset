@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/BitCrewStudio/RescueRope/Scenes/AD4.unity
+    guid: 2e8cf93708e3af6459849a128e97bbf2
   m_configObjects: {}
