@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/BitCrewStudio/RescueRope/Scenes/Boot.unity
+    guid: bc359f280a252cf489d4919c55c47864
+  - enabled: 1
+    path: Assets/BitCrewStudio/RescueRope/Scenes/AD1.unity
+    guid: 90760ecd7aa316444b4b4e87fddc512b
+  - enabled: 1
+    path: Assets/BitCrewStudio/RescueRope/Scenes/AD2.unity
+    guid: 6679a9b73fbd5154c995f938d2ed9bf1
+  - enabled: 1
+    path: Assets/BitCrewStudio/RescueRope/Scenes/AD3.unity
+    guid: 043deae0422a62b41a4b035d3fec8aa6
+  - enabled: 1
     path: Assets/BitCrewStudio/RescueRope/Scenes/AD4.unity
     guid: 2e8cf93708e3af6459849a128e97bbf2
   m_configObjects: {}
