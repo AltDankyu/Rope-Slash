@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class BootManager : MonoBehaviour
 {
     
-    void Awake()
+    void Start()
     {
         SceneManager.LoadScene("AD1");
     }

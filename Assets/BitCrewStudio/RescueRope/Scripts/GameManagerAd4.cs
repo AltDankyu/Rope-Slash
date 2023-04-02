@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using SupersonicWisdomSDK;
+
 
 public class GameManagerAd4 : MonoBehaviour
 {
@@ -20,6 +22,15 @@ public class GameManagerAd4 : MonoBehaviour
 
     private bool gameIsEnded;
 
+    public static int currentlevel_ad4 = GameManagerAd3.currentlevel_ad3;
+
+
+    public void Awake()
+    {
+        SupersonicWisdom.Api.NotifyLevelStarted(GameManager.currentLevel, null);
+    }
+
+
     public void GameEndWithSuccess()
     {
         if (gameIsEnded)
@@ -37,6 +48,13 @@ public class GameManagerAd4 : MonoBehaviour
         nextbutton.SetActive(true);
         girlManager.Glad();
         tigerManager.Die();
+
+        // Completeタグの送信
+        SupersonicWisdom.Api.NotifyLevelCompleted(currentlevel_ad4, null);
+        // 現在のステージを足す。
+        GameManager.AddCurrentLevel();
+
+
     }
 
     public void GameEndWithFailed()
@@ -56,6 +74,9 @@ public class GameManagerAd4 : MonoBehaviour
         retry.SetActive(true);
         girlManager.Die();
         tigerManager.Glad();
+
+        // Failタグの送信
+        SupersonicWisdom.Api.NotifyLevelFailed(currentlevel_ad4, null);
     }
 
     public void Next()

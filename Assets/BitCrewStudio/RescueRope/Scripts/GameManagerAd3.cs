@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using SupersonicWisdomSDK;
+
 
 public class GameManagerAd3 : MonoBehaviour
 {
@@ -26,6 +28,14 @@ public class GameManagerAd3 : MonoBehaviour
     private bool gameEndCheckIsStarted;
     private float gameEndCheckTimer;
     private bool gameEndCheckIsDone;
+
+    public static int currentlevel_ad3 = GameManager.currentLevel;
+
+    public void Awake()
+    {
+        SupersonicWisdom.Api.NotifyLevelStarted(currentlevel_ad3, null);
+    }
+
 
     private IEnumerator InvokeWithDelayCoroutine(Action action, float delay)
     {
@@ -55,6 +65,11 @@ public class GameManagerAd3 : MonoBehaviour
         background.SetActive(true);
         nextbutton.SetActive(true);
         girlManager.Glad();
+
+        // Completeタグの送信
+        SupersonicWisdom.Api.NotifyLevelCompleted(currentlevel_ad3, null);
+        // 現在のステージを足す。
+       
     }
 
     public void GameEndWithFailed()
@@ -74,6 +89,11 @@ public class GameManagerAd3 : MonoBehaviour
         retry.SetActive(true);
         gangManagerLeft.GladIfGangIsAlive();
         gangManagerRight.GladIfGangIsAlive();
+
+        // Failタグの送信
+        SupersonicWisdom.Api.NotifyLevelFailed(currentlevel_ad3, null);
+
+
     }
 
     public void Next()

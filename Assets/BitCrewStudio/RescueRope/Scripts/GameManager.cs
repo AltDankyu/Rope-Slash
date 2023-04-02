@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using SupersonicWisdomSDK;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,13 +15,39 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject retry;
 
-
     [SerializeField] private GirlManager girlManager;
     [SerializeField] private GangManager gangManager;
     [SerializeField] private LineManager lineManager;
     [SerializeField] private string nextScene;
 
     private bool gameIsEnded;
+
+
+    // 現在のステージ数の読み込み
+    public static int currentLevel = 1;
+
+
+    void Awake()
+    {
+        // Subscribe
+        SupersonicWisdom.Api.AddOnReadyListener(OnSupersonicWisdomReady);
+        // Then initialize
+        SupersonicWisdom.Api.Initialize();
+    }
+
+    void OnSupersonicWisdomReady()
+    {
+        // Start your game from this point
+    }
+
+
+    void Start()
+    {
+        SupersonicWisdom.Api.NotifyLevelStarted(currentLevel, null);
+        Debug.Log("現在のステージは" + currentLevel + "ステージ目です。");
+
+
+    }
 
     public void GameEndWithSuccess()
     {
@@ -39,7 +66,23 @@ public class GameManager : MonoBehaviour
         nextbutton.SetActive(true);
         girlManager.Glad();
         gangManager.Die();
+
+        // Completeタグの送信
+        SupersonicWisdom.Api.NotifyLevelCompleted(currentLevel, null);
+        // 現在のステージを足す。
+        AddCurrentLevel();
+        
     }
+
+    public static void AddCurrentLevel()
+    {
+        currentLevel++;
+    }
+
+    
+
+
+
 
     public void GameEndWithFailed()
     {
@@ -58,6 +101,9 @@ public class GameManager : MonoBehaviour
         retry.SetActive(true);
         girlManager.Die();
         gangManager.Glad();
+
+        // Failタグの送信
+        SupersonicWisdom.Api.NotifyLevelFailed(currentLevel, null);
     }
 
     public void Next()
@@ -69,7 +115,7 @@ public class GameManager : MonoBehaviour
         }
         else if(SceneManager.GetActiveScene().name == "AD2")
         {
-            SceneManager.LoadScene("AD3");
+            SceneManager.LoadScene("AD1");
         }
         else if(SceneManager.GetActiveScene().name == "AD3")
         {
